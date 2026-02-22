@@ -1,0 +1,13 @@
+/* @import 'tailwindcss'; */
+
+/* @font-face {
+  font-family: Questrial;
+  src: url(../public/font/questrial_n4.66abac5d8209a647b4bf8089b0451928ef144c07.ttf);
+}
+
+.Questrial{
+  font-family: Questrial;
+} */
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
