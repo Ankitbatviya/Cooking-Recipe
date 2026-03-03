@@ -1,23 +1,64 @@
 import React, { useState, useEffect } from 'react';
-import { Utensils, User, Menu, X, Instagram, Youtube, Twitter, Facebook } from 'lucide-react';
+import styled from 'styled-components';
+import { Utensils, User, Instagram, Twitter, Facebook } from 'lucide-react';
+
+// --- Styled Component for the Animated Hamburger ---
+const HamburgerWrapper = styled.div`
+  .hamburger {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hamburger input {
+    display: none;
+  }
+
+  .hamburger svg {
+    height: 2.5em; /* Adjusted slightly for nav bar scaling */
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .line {
+    fill: none;
+    stroke: #355872; /* Matched to your theme color */
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .line-top-bottom {
+    stroke-dasharray: 12 63;
+  }
+
+  /* We use the 'checked' state driven by React props */
+  .hamburger input:checked + svg {
+    transform: rotate(-45deg);
+  }
+
+  .hamburger input:checked + svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+  }
+`;
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true); 
+  const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const controlHeader = () => {
       const currentScrollY = window.scrollY;
-
-      // Logic: Hide on Down Scroll, Show on Up Scroll
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        setIsVisible(false); 
+        setIsVisible(false);
       } else {
         setIsVisible(true);
       }
-
       setIsScrolled(currentScrollY > 20);
       setLastScrollY(currentScrollY);
     };
@@ -26,7 +67,6 @@ const Header = () => {
     return () => window.removeEventListener('scroll', controlHeader);
   }, [lastScrollY]);
 
-  // Lock Body Scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : 'unset';
   }, [isMobileMenuOpen]);
@@ -39,12 +79,12 @@ const Header = () => {
 
   return (
     <>
-      <header 
+      <header
         className={`fixed top-0 left-0 w-full z-[150] transition-all duration-500 ease-in-out bg-[#F7F8F0] ${
           isVisible || isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
         } ${
           isScrolled && !isMobileMenuOpen
-            ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm border-b border-[#7AAACE]/10' 
+            ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm border-b border-[#7AAACE]/10'
             : 'bg-transparent py-6'
         }`}
       >
@@ -60,7 +100,7 @@ const Header = () => {
             </span>
           </div>
 
-          {/* DESKTOP NAV LINKS - Re-added for Laptop Screen */}
+          {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => (
               <a
@@ -83,12 +123,20 @@ const Header = () => {
               </button>
             )}
 
-            <button 
-              className="md:hidden p-2 text-[#355872] outline-none border-none bg-transparent active:scale-90 transition-transform"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={34} strokeWidth={1.5} /> : <Menu size={34} strokeWidth={1.5} />}
-            </button>
+            {/* --- NEW ANIMATED HAMBURGER --- */}
+            <HamburgerWrapper className="md:hidden">
+              <label className="hamburger">
+                <input 
+                  type="checkbox" 
+                  checked={isMobileMenuOpen} 
+                  onChange={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+                />
+                <svg viewBox="0 0 32 32">
+                  <path className="line line-top-bottom" d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22" />
+                  <path className="line" d="M7 16 27 16" />
+                </svg>
+              </label>
+            </HamburgerWrapper>
           </div>
         </nav>
       </header>
