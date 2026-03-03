@@ -12,8 +12,10 @@
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.90.21",
     "axios": "^1.13.4",
     "axois": "^0.0.1-security",
+    "buffer": "^6.0.3",
     "dotenv": "^17.2.3",
     "lucide-react": "^0.563.0",
     "react": "^19.2.0",
