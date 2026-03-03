@@ -8,6 +8,7 @@ import Hero from "../components/Home/Hero";
 import Features from "../components/Home/Features";
 import Reviews from "../components/Home/Reviews";
 import PopularSection from "../components/Home/Popular";
+import Loader from "../components/Loader";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
@@ -47,6 +48,7 @@ const HomePage = () => {
 
   return (
     <div className="bg-white min-h-screen selection:bg-orange-500 selection:text-white overflow-x-hidden">
+      <Loader/>
       <Header />
 
       <main id="main-content">
