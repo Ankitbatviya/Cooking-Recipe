@@ -8,7 +8,7 @@ import Hero from "../components/Home/Hero";
 import Features from "../components/Home/Features";
 import Reviews from "../components/Home/Reviews";
 import PopularSection from "../components/Home/Popular";
-import Loader from "../components/Loader";
+
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
   const creatorName = "Ankit Batviya";
-  const categories = ["Beef", "Chicken", "Dessert", "Lamb", "Pasta", "Seafood"];
+  const categories = [ "Seafood", "Chicken", "Dessert", "Lamb", "Pasta","Beef"];
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -27,7 +27,13 @@ const HomePage = () => {
         );
 
         if (res.data?.meals) {
-          setRecipes(res.data.meals.slice(0, 3));
+
+          if (window.innerWidth > 768) {
+            setRecipes(res.data.meals.slice(0, 3));
+          }
+          else {
+            setRecipes(res.data.meals.slice(0, 4));
+          }
         } else {
           setRecipes([]);
         }
@@ -48,7 +54,6 @@ const HomePage = () => {
 
   return (
     <div className="bg-white min-h-screen selection:bg-orange-500 selection:text-white overflow-x-hidden">
-      <Loader/>
       <Header />
 
       <main id="main-content">

@@ -16,7 +16,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { BlobProvider } from "@react-pdf/renderer";
 import RecipePdf from "../Services/RecipePdf";
-import Loader from '../components/Loader ';
+import Loader from '../components/Loader';
 
 const RecipePageProfessional = () => {
     const navigate = useNavigate();
