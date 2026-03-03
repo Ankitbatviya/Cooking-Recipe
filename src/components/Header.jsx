@@ -40,7 +40,7 @@ const Header = () => {
   return (
     <>
       <header 
-        className={`fixed top-0 left-0 w-full z-[150] transition-all duration-500 ease-in-out ${
+        className={`fixed top-0 left-0 w-full z-[150] transition-all duration-500 ease-in-out bg-[#F7F8F0] ${
           isVisible || isMobileMenuOpen ? 'translate-y-0' : '-translate-y-full'
         } ${
           isScrolled && !isMobileMenuOpen
