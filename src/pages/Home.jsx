@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// 1. Import your new component 
+import { Helmet } from 'react-helmet-async';
+
+// Components
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Hero from '../components/Home/Hero';
@@ -13,6 +15,8 @@ const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState('Beef');
   const [recipes, setRecipes] = useState([]);
 
+  // Replace 'Your Full Name' with your actual name
+  const creatorName = "Ankit"; 
   const categories = ['Beef', 'Chicken', 'Dessert', 'Lamb', 'Pasta', 'Seafood'];
 
   useEffect(() => {
@@ -21,7 +25,6 @@ const HomePage = () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BASE_URL}filter.php?c=${activeCategory}`);
         setRecipes(res.data.meals.slice(0, 3));
-        console.log(recipes)
       } catch (error) {
         console.error("Error fetching recipes:", error);
       } finally {
@@ -32,28 +35,48 @@ const HomePage = () => {
   }, [activeCategory]);
 
   return (
-    // Updated background to dark to match your new Brutalist theme
-    <div className="min-h-screen  text-white selection:bg-orange-500/30 selection:text-orange-500">
+    <>
+      <Helmet>
+        <title>Flavor | Curated Recipes by {creatorName}</title>
+        <meta name="description" content={`Discover professional-grade recipes and kitchen-tested blueprints curated by ${creatorName}. Explore global flavors at Flavor.`} />
+        
+        {/* KEYWORDS SECTION */}
+        <meta name="keywords" content={`${creatorName}, ${creatorName} recipes, Flavor app, professional cooking guides, kitchen tested recipes, healthy meal plans, easy dinner ideas, gourmet cooking ${creatorName}`} />
+        
+        {/* Author Tag */}
+        <meta name="author" content={creatorName} />
 
-      <Header />
+        <meta property="og:title" content={`Flavor - Curated by ${creatorName}`} />
+        <meta property="og:description" content={`Explore the best culinary moments and recipes hand-picked by ${creatorName}.`} />
+      </Helmet>
 
-      <Hero />
+      <div className="bg-white min-h-screen selection:bg-orange-500 selection:text-white overflow-x-hidden">
+        <Header />
 
-      <Features />
+        <main id="main-content">
+          <Hero />
 
-      {/* --- 2. CALL THE COMPONENT HERE --- */}
-      <PopularSection 
-        recipes={recipes} 
-        categories={categories} 
-        activeCategory={activeCategory} 
-        setActiveCategory={setActiveCategory} 
-        loading={loading} 
-      />
+          {/* ADDED: Subtle SEO Anchor for your name */}
+          <div className="sr-only">
+             <h2>Recipes and Culinary Art by {creatorName}</h2>
+             <p>Flavor is a platform designed and curated by {creatorName} to provide professional cooking blueprints.</p>
+          </div>
 
-      <Reviews />
+          <PopularSection 
+            recipes={recipes} 
+            categories={categories} 
+            activeCategory={activeCategory} 
+            setActiveCategory={setActiveCategory} 
+            loading={loading} 
+          />
 
-      <Footer />
-    </div>
+          <Features />
+          <Reviews />
+        </main>
+
+        <Footer />
+      </div>
+    </>
   );
 };
 
