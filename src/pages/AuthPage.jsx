@@ -3,131 +3,117 @@ import { Mail, Lock, User, ArrowRight, ChefHat, Github, Chrome } from 'lucide-re
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    fullName: ''
-  });
 
-  const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  // --- SOCIAL AUTH HANDLERS ---
+  const handleGoogleLogin = () => {
+    // Redirect to your backend or Firebase Google Auth
+    window.location.href = "http://localhost:5000/auth/google"; 
+    console.log("Redirecting to Google...");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Submitting:", isLogin ? "Login" : "Signup", formData);
+  const handleGithubLogin = () => {
+    // Redirect to your backend or Firebase Github Auth
+    window.location.href = "http://localhost:5000/auth/github";
+    console.log("Redirecting to GitHub...");
   };
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center bg-stone-950 px-6 py-12 overflow-hidden">
+    <div className="relative min-h-screen h-screen w-full flex items-center justify-center bg-[#EFECE3] overflow-hidden">
       
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=2070" 
-          alt="Kitchen" 
-          className="w-full h-full object-cover opacity-40 grayscale-[20%]"
-        />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent to-stone-950" />
-      </div>
+      {/* Decorative Elements for 100vh appeal */}
+      <div className="absolute top-[-10%] left-[-5%] w-96 h-96 bg-[#8FABD4] rounded-full blur-[120px] opacity-30" />
+      <div className="absolute bottom-[-10%] right-[-5%] w-96 h-96 bg-[#4A70A9] rounded-full blur-[120px] opacity-20" />
 
       {/* Auth Card */}
-      <div className="relative z-10 w-full max-w-[460px] bg-stone-900/75 backdrop-blur-3xl border border-white/10 rounded-[3rem] p-10 md:p-14 shadow-2xl">
+      <div className="relative z-10 w-full max-w-[480px] bg-black shadow-[0_32px_64px_-12px_rgba(0,0,0,0.4)] rounded-[2.5rem] p-10 md:p-14 border border-[#4A70A9]/20">
         
-        {/* Brand Section */}
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-orange-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-8 -rotate-6 shadow-lg shadow-orange-600/20">
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-[#4A70A9] text-[#EFECE3] rounded-2xl flex items-center justify-center mx-auto mb-6 -rotate-6 shadow-xl">
             <ChefHat size={32} />
           </div>
-          <h2 className="text-white font-serif italic text-4xl md:text-5xl mb-3 tracking-tight">
-            {isLogin ? 'Welcome Back' : 'Create Account'}
+          <h2 className="text-[#EFECE3] font-serif italic text-4xl mb-2 tracking-tight">
+            {isLogin ? 'Welcome Back' : 'Join Us'}
           </h2>
-          <p className="text-stone-400 text-sm md:text-base leading-relaxed max-w-[280px] mx-auto">
-            {isLogin 
-              ? 'Sign in to access your saved recipes and masterclass progress.' 
-              : 'Join our community of professional chefs and home cooks.'}
+          <p className="text-[#8FABD4] text-xs uppercase font-bold tracking-[0.2em]">
+            {isLogin ? 'Masterclass Access' : 'Start Your Journey'}
           </p>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        {/* Input Form */}
+        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
           {!isLogin && (
-            <div className="relative group">
-              <User className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-500 group-focus-within:text-orange-500 transition-colors" size={18} />
+            <div className="relative">
+              <User className="absolute left-5 top-1/2 -translate-y-1/2 text-[#8FABD4]" size={18} />
               <input 
                 type="text" 
-                name="fullName"
                 placeholder="Full Name" 
-                className="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-14 pr-6 text-white placeholder-stone-600 outline-none focus:border-orange-600 focus:bg-white/10 transition-all"
-                required 
-                onChange={handleInputChange}
+                className="w-full bg-[#EFECE3]/5 border border-[#4A70A9]/30 rounded-full py-4 pl-14 pr-6 text-[#EFECE3] placeholder-[#8FABD4]/50 outline-none focus:border-[#8FABD4] transition-all"
               />
             </div>
           )}
 
-          <div className="relative group">
-            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-500 group-focus-within:text-orange-500 transition-colors" size={18} />
+          <div className="relative">
+            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-[#8FABD4]" size={18} />
             <input 
               type="email" 
-              name="email"
               placeholder="Email Address" 
-              className="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-14 pr-6 text-white placeholder-stone-600 outline-none focus:border-orange-600 focus:bg-white/10 transition-all"
-              required 
-              onChange={handleInputChange}
+              className="w-full bg-[#EFECE3]/5 border border-[#4A70A9]/30 rounded-full py-4 pl-14 pr-6 text-[#EFECE3] placeholder-[#8FABD4]/50 outline-none focus:border-[#8FABD4] transition-all"
             />
           </div>
 
-          <div className="relative group">
-            <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-stone-500 group-focus-within:text-orange-500 transition-colors" size={18} />
+          <div className="relative">
+            <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-[#8FABD4]" size={18} />
             <input 
               type="password" 
-              name="password"
               placeholder="Password" 
-              className="w-full bg-white/5 border border-white/10 rounded-full py-4 pl-14 pr-6 text-white placeholder-stone-600 outline-none focus:border-orange-600 focus:bg-white/10 transition-all"
-              required 
-              onChange={handleInputChange}
+              className="w-full bg-[#EFECE3]/5 border border-[#4A70A9]/30 rounded-full py-4 pl-14 pr-6 text-[#EFECE3] placeholder-[#8FABD4]/50 outline-none focus:border-[#8FABD4] transition-all"
             />
           </div>
 
-          <button 
-            type="submit" 
-            className="w-full py-5 mt-4 bg-orange-600 hover:bg-white hover:text-stone-950 text-white font-black text-[11px] uppercase tracking-[0.2em] rounded-full flex items-center justify-center gap-3 transition-all duration-300 transform hover:-translate-y-1"
-          >
-            {isLogin ? 'Sign In' : 'Begin Journey'}
+          <button className="w-full py-5 mt-2 bg-[#4A70A9] hover:bg-[#8FABD4] text-[#EFECE3] font-black text-[10px] uppercase tracking-[0.3em] rounded-full flex items-center justify-center gap-3 transition-all duration-500 shadow-lg active:scale-95">
+            {isLogin ? 'Sign In' : 'Create Account'}
             <ArrowRight size={18} />
           </button>
         </form>
 
         {/* Divider */}
-        <div className="relative my-8 flex items-center justify-center">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-white/10"></div>
-          </div>
-          <span className="relative bg-stone-900 px-4 text-[10px] font-bold text-stone-500 uppercase tracking-widest">
-            Or continue with
+        <div className="relative my-8 flex items-center">
+          <div className="flex-grow border-t border-[#4A70A9]/20"></div>
+          <span className="flex-shrink mx-4 text-[9px] font-bold text-[#8FABD4] uppercase tracking-widest">
+            Identity Verification
           </span>
+          <div className="flex-grow border-t border-[#4A70A9]/20"></div>
         </div>
 
         {/* Social Buttons */}
-        <div className="grid grid-cols-2 gap-3">
-          <button className="flex items-center justify-center gap-2 py-3 bg-transparent border border-white/10 rounded-full text-white text-sm font-semibold hover:bg-white/5 hover:border-white/30 transition-all">
-            <Chrome size={18} className="text-orange-500" /> Google
+        <div className="grid grid-cols-2 gap-4">
+          <button 
+            onClick={handleGoogleLogin}
+            className="flex items-center justify-center gap-3 py-4 bg-white hover:bg-[#EFECE3] text-black rounded-full text-[11px] font-black uppercase tracking-tighter transition-all shadow-sm active:scale-95"
+          >
+            <Chrome size={18} className="text-[#4A70A9]" /> Google
           </button>
-          <button className="flex items-center justify-center gap-2 py-3 bg-transparent border border-white/10 rounded-full text-white text-sm font-semibold hover:bg-white/5 hover:border-white/30 transition-all">
+          <button 
+            onClick={handleGithubLogin}
+            className="flex items-center justify-center gap-3 py-4 bg-[#8FABD4] hover:bg-[#4A70A9] text-black hover:text-white rounded-full text-[11px] font-black uppercase tracking-tighter transition-all shadow-sm active:scale-95"
+          >
             <Github size={18} /> GitHub
           </button>
         </div>
 
-        {/* Toggle Area */}
-        <p className="mt-10 text-stone-500 text-sm">
-          {isLogin ? "New to the platform?" : "Already have an account?"}
-          <button 
-            onClick={() => setIsLogin(!isLogin)}
-            className="ml-2 text-orange-500 font-bold hover:underline"
-          >
-            {isLogin ? 'Sign Up' : 'Log In'}
-          </button>
-        </p>
+        {/* Footer Toggle */}
+        <div className="mt-10 text-center">
+          <p className="text-[#8FABD4] text-[11px] font-medium uppercase tracking-widest">
+            {isLogin ? "No account?" : "Member?"}
+            <button 
+              onClick={() => setIsLogin(!isLogin)}
+              className="ml-2 text-[#EFECE3] font-black border-b border-[#EFECE3] hover:text-[#4A70A9] transition-colors"
+            >
+              {isLogin ? 'Register' : 'Login'}
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );
