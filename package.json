@@ -17,6 +17,7 @@
     "axois": "^0.0.1-security",
     "buffer": "^6.0.3",
     "dotenv": "^17.2.3",
+    "framer-motion": "^12.35.2",
     "lucide-react": "^0.563.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

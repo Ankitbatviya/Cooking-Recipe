@@ -1,7 +1,9 @@
 import React from 'react';
 import { Compass, ArrowRight, Heart, Clock, Utensils, Play, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+    const Navigation = useNavigate()
     return (
         <section className="relative w-full min-h-screen bg-[#F7F8F0] overflow-hidden flex items-center mt-10">
             {/* --- BACKGROUND ORNAMENTATION --- */}
@@ -66,7 +68,7 @@ const Hero = () => {
                             {/* --- BUTTONS --- */}
                             <div className="flex flex-col sm:flex-row items-center gap-6 pt-4">
                                 {/* Primary Button */}
-                                <button className="w-full sm:w-auto group relative h-16 px-10 overflow-hidden rounded-2xl bg-[#355872] text-white transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(53,88,114,0.4)]">
+                                <button className="w-full sm:w-auto group relative h-16 px-10 overflow-hidden rounded-2xl bg-[#355872] text-white transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(53,88,114,0.4)]" onClick={()=>{Navigation('/recipes')}}>
                                     <div className="absolute inset-0 w-0 bg-[#7AAACE] transition-all duration-300 ease-out group-hover:w-full" />
                                     <span className="relative flex items-center justify-center gap-3 font-bold tracking-widest uppercase text-sm">
                                         Explore Now
@@ -75,7 +77,7 @@ const Hero = () => {
                                 </button>
 
                                 {/* Secondary Button */}
-                                <button className="group flex items-center gap-4 text-[#355872] font-black uppercase text-[11px] tracking-[0.25em] h-16 transition-all">
+                                <button className="group flex items-center gap-4 text-[#355872] font-black uppercase text-[11px] tracking-[0.25em] h-16 transition-all" onClick={()=>{Navi}}>
                                     <div className="w-12 h-12 rounded-full border border-[#7AAACE]/30 flex items-center justify-center group-hover:bg-[#7AAACE] group-hover:text-white transition-all">
                                         <Play size={16} className="fill-current ml-1" />
                                     </div>
