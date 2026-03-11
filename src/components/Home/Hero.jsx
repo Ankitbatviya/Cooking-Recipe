@@ -77,7 +77,7 @@ const Hero = () => {
                                 </button>
 
                                 {/* Secondary Button */}
-                                <button className="group flex items-center gap-4 text-[#355872] font-black uppercase text-[11px] tracking-[0.25em] h-16 transition-all" onClick={()=>{Navi}}>
+                                <button className="group flex items-center gap-4 text-[#355872] font-black uppercase text-[11px] tracking-[0.25em] h-16 transition-all" onClick={()=>{Navigation('/about')}}>
                                     <div className="w-12 h-12 rounded-full border border-[#7AAACE]/30 flex items-center justify-center group-hover:bg-[#7AAACE] group-hover:text-white transition-all">
                                         <Play size={16} className="fill-current ml-1" />
                                     </div>
